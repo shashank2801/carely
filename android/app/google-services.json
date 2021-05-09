@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "619820398864",
+    "project_id": "carely-3b7b0",
+    "storage_bucket": "carely-3b7b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619820398864:android:5edc7e7089e3a921d44d95",
+        "android_client_info": {
+          "package_name": "com.example.carely"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619820398864-c2s83h2tl2tojo104o6400jogbni976i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.carely",
+            "certificate_hash": "3d946c7a67e76fd5baa1a0b93c2da3a42e1ba4ef"
+          }
+        },
+        {
+          "client_id": "619820398864-g7er0skpcdvs5v3jiohjutr50e3249tn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_inXITlMvYRTOiU1UNA-Zxkp7h8VYplc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619820398864-g7er0skpcdvs5v3jiohjutr50e3249tn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
