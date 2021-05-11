@@ -1,11 +1,16 @@
+import 'package:carely/components/Button.dart';
+import 'package:carely/components/banner.dart';
+import 'package:carely/components/bottomButton.dart';
 import 'package:carely/components/customText.dart';
 import 'package:carely/components/reusableCard.dart';
+import 'package:carely/screens/bmi2.dart';
+import 'package:carely/services/screen_navigation.dart';
 import 'package:carely/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-const activated = Colors.blueGrey;
-const inactivated = white;
+const activated = Colors.white;
+const inactivated = Colors.blueGrey;
 
 enum Gender {
   male,
@@ -20,19 +25,17 @@ class BMI extends StatefulWidget {
 class _BMIState extends State<BMI> {
   Gender selectedGender;
   int height = 180;
+  int age = 18;
+  int weight = 50;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: black,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: white,
-          centerTitle: true,
-          title: CustomText(title: selectedGender.toString()),
-        ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            BackButton(color: white,),
             Expanded(
               child: Row(
                 children: [
@@ -77,7 +80,8 @@ class _BMIState extends State<BMI> {
                 cardChild: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CustomText(title: "Height",size: 20,weight: FontWeight.w800),
+                    CustomText(
+                        title: "Height", size: 20, weight: FontWeight.w800),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -88,20 +92,33 @@ class _BMIState extends State<BMI> {
                           size: 80,
                           weight: FontWeight.bold,
                         ),
-                        CustomText(title: "cm",size: 20,)
+                        CustomText(
+                          title: "cm",
+                          size: 20,
+                        )
                       ],
                     ),
-                    Slider(
-                        min: 120.0,
-                        max: 220.0,
-                        value: height.toDouble(),
-                        activeColor: Colors.red,
-                        inactiveColor: black,
-                        onChanged: (double newValue) {
-                          setState(() {
-                            height = newValue.round();
-                          });
-                        }),
+                    SliderTheme(
+                      data: SliderTheme.of(context).copyWith(
+                        activeTrackColor: white,
+                        inactiveTrackColor: black,
+                        thumbColor: Colors.red,
+                        overlayColor: Colors.red[100],
+                        thumbShape:
+                            RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                        overlayShape:
+                            RoundSliderOverlayShape(overlayRadius: 20.0),
+                      ),
+                      child: Slider(
+                          min: 120.0,
+                          max: 220.0,
+                          value: height.toDouble(),
+                          onChanged: (double newValue) {
+                            setState(() {
+                              height = newValue.round();
+                            });
+                          }),
+                    ),
                   ],
                 ),
               ),
@@ -111,17 +128,90 @@ class _BMIState extends State<BMI> {
                 children: [
                   Expanded(
                     child: ReusableCard(
-                      color: grey,
+                      color: Colors.blueGrey,
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CustomText(
+                              title: "Weight",
+                              size: 20,
+                              weight: FontWeight.w800),
+                          CustomText(
+                            title: weight.toString(),
+                            size: 70,
+                            weight: FontWeight.bold,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              RoundButton(
+                                label: "+",
+                                onPressed: () {
+                                  setState(() {
+                                    weight++;
+                                  });
+                                },
+                                color: white,
+                              ),
+                              RoundButton(
+                                label: "-",
+                                onPressed: () {
+                                  setState(() {
+                                    weight--;
+                                  });
+                                },
+                                color: white,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(
                     child: ReusableCard(
-                      color: grey,
+                      color: Colors.blueGrey,
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CustomText(
+                              title: "Age", size: 20, weight: FontWeight.w800),
+                          CustomText(
+                              title: age.toString(),
+                              size: 70,
+                              weight: FontWeight.bold),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              RoundButton(
+                                label: "+",
+                                onPressed: () {
+                                  setState(() {
+                                    age++;
+                                  });
+                                },
+                                color: white,
+                              ),
+                              RoundButton(
+                                label: "-",
+                                onPressed: () {
+                                  setState(() {
+                                    age--;
+                                  });
+                                },
+                                color: white,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
+            BottomButton(onPress: (){changeScreen(context, BMIResult(age: age,weight: weight,height: height,));},label: "Calculate",),
+            BottomBanner(color: white,)
           ],
         ),
       ),

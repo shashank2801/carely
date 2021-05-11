@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'customText.dart';
+
 class Button extends StatelessWidget {
   Button({this.text, this.color, @required this.onPressed, this.fw, this.fs});
 
@@ -23,5 +25,20 @@ class Button extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class RoundButton extends StatelessWidget {
+  final String label;
+  final Function onPressed;
+  final Color color;
+
+  const RoundButton({Key key,@required this.label, @required this.onPressed, this.color}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+        backgroundColor: color,
+        child: CustomText(title: label,size: 25,weight: FontWeight.bold,),
+        onPressed: onPressed);
   }
 }
