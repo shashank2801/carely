@@ -1,6 +1,8 @@
 import 'package:carely/components/customText.dart';
 import 'package:carely/models/user.dart';
+import 'package:carely/screens/bmi.dart';
 import 'package:carely/services/authService.dart';
+import 'package:carely/services/screen_navigation.dart';
 import 'package:carely/utils/constants.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -64,6 +66,10 @@ class _HomePageState extends State<HomePage> {
           body: Column(
             children: [
               CustomText(title: 'Hello, $_user'),
+              MaterialButton(
+                child: CustomText(title: "BMI"),
+                onPressed: (){changeScreen(context, BMI());},
+              ),
             ],
           )),
     );
