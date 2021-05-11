@@ -10,12 +10,11 @@ enum Gender {
 }
 
 class BMIResult extends StatelessWidget {
-  final Gender selectedGender;
-  final int height, age, weight;
+  final String bmi, result, interpret;
 
-  const BMIResult(
-      {Key key, this.selectedGender, this.height, this.age, this.weight})
-      : super(key: key);
+  const BMIResult({Key key, this.bmi, this.result, this.interpret}) : super(key: key);
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -46,15 +45,19 @@ class BMIResult extends StatelessWidget {
                 padding: const EdgeInsets.all(12.0),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.blueGrey,
+                    gradient: LinearGradient(colors: [Colors.lime, Colors.orange],begin: Alignment.topLeft,end: Alignment.bottomRight),
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("Score"),
-                      Text("Gyaan"),
+                      CustomText(title:bmi,size: 80,weight: FontWeight.bold,),
+                      CustomText(title:result,size: 25,weight: FontWeight.w500,),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CustomText(title:interpret,size: 20,),
+                      )
                     ],
                   ),
                 ),

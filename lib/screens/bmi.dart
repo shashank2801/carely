@@ -4,13 +4,14 @@ import 'package:carely/components/bottomButton.dart';
 import 'package:carely/components/customText.dart';
 import 'package:carely/components/reusableCard.dart';
 import 'package:carely/screens/bmi2.dart';
+import 'package:carely/services/calcBMI.dart';
 import 'package:carely/services/screen_navigation.dart';
 import 'package:carely/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-const activated = Colors.white;
-const inactivated = Colors.blueGrey;
+const activated = Colors.blueGrey;
+const inactivated = grey;
 
 enum Gender {
   male,
@@ -31,11 +32,11 @@ class _BMIState extends State<BMI> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: black,
+        backgroundColor: white,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BackButton(color: white,),
+            BackButton(),
             Expanded(
               child: Row(
                 children: [
@@ -210,8 +211,27 @@ class _BMIState extends State<BMI> {
                 ],
               ),
             ),
-            BottomButton(onPress: (){changeScreen(context, BMIResult(age: age,weight: weight,height: height,));},label: "Calculate",),
-            BottomBanner(color: white,)
+            BottomButton(
+              onPress: () {
+                CalculatorBrain calc = CalculatorBrain(height, weight);
+
+                String bmi = calc.calcBMI();
+                String result = calc.getResult();
+                String interpret = calc.getInterpretation();
+
+                changeScreen(
+                    context,
+                    BMIResult(
+                      bmi: bmi,
+                      result: result,
+                      interpret: interpret,
+                    ));
+              },
+              label: "Calculate",
+            ),
+            BottomBanner(
+              color: black,
+            )
           ],
         ),
       ),

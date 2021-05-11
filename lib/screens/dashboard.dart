@@ -43,7 +43,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    String user;
     return SafeArea(
       child: Scaffold(
           backgroundColor: white,
@@ -67,11 +66,21 @@ class _HomePageState extends State<HomePage> {
             children: [
               CustomText(title: 'Hello, $_user'),
               MaterialButton(
+                elevation: 5,
+                color: Colors.red,
+                disabledColor: Colors.teal,
                 child: CustomText(title: "BMI"),
                 onPressed: (){changeScreen(context, BMI());},
               ),
             ],
-          )),
+          ),
+          bottomNavigationBar: Row(
+            children: [
+              
+            ],
+          ),
+          ),
+          
     );
   }
 }
