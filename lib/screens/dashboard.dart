@@ -1,6 +1,8 @@
+import 'package:carely/components/banner.dart';
 import 'package:carely/components/customText.dart';
 import 'package:carely/models/user.dart';
 import 'package:carely/screens/bmi.dart';
+import 'package:carely/screens/disclaimer.dart';
 import 'package:carely/services/authService.dart';
 import 'package:carely/services/screen_navigation.dart';
 import 'package:carely/utils/constants.dart';
@@ -64,7 +66,7 @@ class _HomePageState extends State<HomePage> {
           ),
           body: Column(
             children: [
-              CustomText(title: 'Hello, $_user'),
+              CustomText(title: 'Hello, $_user',weight: FontWeight.bold,size:24),
               MaterialButton(
                 elevation: 5,
                 color: Colors.red,
@@ -72,13 +74,16 @@ class _HomePageState extends State<HomePage> {
                 child: CustomText(title: "BMI"),
                 onPressed: (){changeScreen(context, BMI());},
               ),
+              MaterialButton(
+                elevation: 5,
+                color: Colors.red,
+                disabledColor: Colors.teal,
+                child: CustomText(title: "Resources"),
+                onPressed: (){changeScreen(context, Disclaimer());},
+              ),
             ],
           ),
-          bottomNavigationBar: Row(
-            children: [
-              
-            ],
-          ),
+          bottomNavigationBar: BottomBanner(color: black,),
           ),
           
     );
