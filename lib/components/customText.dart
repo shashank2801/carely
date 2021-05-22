@@ -13,7 +13,7 @@ class CustomText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      title,style: TextStyle(fontSize: size ?? 16, fontWeight: weight ?? FontWeight.normal, color: color?? black),
+      title,style: TextStyle(fontSize: size ?? 16, fontWeight: weight ?? FontWeight.normal, color: color?? white),
     );
   }
 }

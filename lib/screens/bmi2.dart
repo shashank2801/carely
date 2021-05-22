@@ -19,7 +19,7 @@ class BMIResult extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: white,
+       // backgroundColor: white,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,13 +34,13 @@ class BMIResult extends StatelessWidget {
                     title: "Your Results",
                     size: 30,
                     weight: FontWeight.bold,
-                    color: black,
+                    
                   ),
                 ],
               ),
             ),
             Expanded(
-              flex: 5,
+              flex: 6,
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Container(
@@ -52,11 +52,11 @@ class BMIResult extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      CustomText(title:bmi,size: 80,weight: FontWeight.bold,),
-                      CustomText(title:result,size: 25,weight: FontWeight.w500,),
+                      CustomText(title:bmi,size: 80,weight: FontWeight.bold,color: black,),
+                      CustomText(title:result,size: 25,weight: FontWeight.w500,color: black,),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: CustomText(title:interpret,size: 20,),
+                        child: CustomText(title:interpret,size: 20,color: black,),
                       )
                     ],
                   ),

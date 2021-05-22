@@ -32,7 +32,7 @@ class _BMIState extends State<BMI> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: white,
+        //backgroundColor: white,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -41,6 +41,7 @@ class _BMIState extends State<BMI> {
               child: Row(
                 children: [
                   Expanded(
+                    
                     child: ReusableCard(
                       onPress: () {
                         setState(() {
@@ -57,6 +58,7 @@ class _BMIState extends State<BMI> {
                     ),
                   ),
                   Expanded(
+                    
                     child: ReusableCard(
                       onPress: () {
                         setState(() {
@@ -82,7 +84,7 @@ class _BMIState extends State<BMI> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomText(
-                        title: "Height", size: 20, weight: FontWeight.w800),
+                        title: "Height", size: 20, weight: FontWeight.w800,color: black,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -146,20 +148,26 @@ class _BMIState extends State<BMI> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               RoundButton(
-                                label: "+",
+                                label: "-",
+                                textColor: black,
                                 onPressed: () {
-                                  setState(() {
-                                    weight++;
-                                  });
+                                  setState(
+                                    () {
+                                      weight--;
+                                    },
+                                  );
                                 },
                                 color: white,
                               ),
                               RoundButton(
-                                label: "-",
+                                label: "+",
+                                textColor: black,
                                 onPressed: () {
-                                  setState(() {
-                                    weight--;
-                                  });
+                                  setState(
+                                    () {
+                                      weight++;
+                                    },
+                                  );
                                 },
                                 color: white,
                               ),
@@ -185,20 +193,26 @@ class _BMIState extends State<BMI> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               RoundButton(
-                                label: "+",
+                                label: "-",
+                                textColor: black,
                                 onPressed: () {
-                                  setState(() {
-                                    age++;
-                                  });
+                                  setState(
+                                    () {
+                                      age--;
+                                    },
+                                  );
                                 },
                                 color: white,
                               ),
                               RoundButton(
-                                label: "-",
+                                label: "+",
+                                textColor: black,
                                 onPressed: () {
-                                  setState(() {
-                                    age--;
-                                  });
+                                  setState(
+                                    () {
+                                      age++;
+                                    },
+                                  );
                                 },
                                 color: white,
                               ),

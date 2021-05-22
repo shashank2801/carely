@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'customText.dart';
 
 class Button extends StatelessWidget {
-  Button({this.text, this.color, @required this.onPressed, this.fw, this.fs});
+  Button({this.text, this.color, @required this.onPressed, this.fw, this.fs, this.textColor});
 
   final String text;
   final Color color;
+  final Color textColor;
   final Function onPressed;
   final FontWeight fw;
   final double fs;
@@ -19,11 +20,10 @@ class Button extends StatelessWidget {
         elevation: 5.0,
         child: MaterialButton(
           onPressed: onPressed,
-          minWidth: 150.0,
+          minWidth: 125.0,
           height: 50.0,
-          child: Text(text,style: TextStyle(fontWeight: fw,fontSize: fs),),
+          child: CustomText(title: text,weight: fw,size: fs,color: textColor,),),
         ),
-      ),
     );
   }
 }
@@ -32,13 +32,14 @@ class RoundButton extends StatelessWidget {
   final String label;
   final Function onPressed;
   final Color color;
+  final Color textColor;
 
-  const RoundButton({Key key,@required this.label, @required this.onPressed, this.color}) : super(key: key);
+  const RoundButton({Key key,@required this.label, @required this.onPressed, this.color, this.textColor}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
         backgroundColor: color,
-        child: CustomText(title: label,size: 25,weight: FontWeight.bold,),
+        child: CustomText(title: label,size: 25,weight: FontWeight.bold,color: textColor,),
         onPressed: onPressed);
   }
 }

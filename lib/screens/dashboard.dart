@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
           ),
           body: Column(
             children: [
-              CustomText(title: 'Hello, $_user',weight: FontWeight.bold,size:24),
+              CustomText(title: 'Hello $_user',weight: FontWeight.bold,size:24),
               MaterialButton(
                 elevation: 5,
                 color: Colors.red,

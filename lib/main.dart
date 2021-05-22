@@ -33,9 +33,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Carely',
         debugShowCheckedModeBanner: false,
-        // theme: ThemeData(
-        //   primarySwatch: green,
-        // ),
+        
+        theme: ThemeData(
+          brightness: Brightness.dark,
+        ),
         routes: {
           Routes.auth_screen : (context) => AuthScreen(),
           Routes.login_screen : (context) => LoginScreen(),
