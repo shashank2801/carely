@@ -1,6 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:carely/components/customText.dart';
-import 'package:carely/screens/portal.dart';
+import 'package:carely/screens/portal/portal.dart';
 import 'package:carely/services/screen_navigation.dart';
 import 'package:carely/utils/constants.dart';
 

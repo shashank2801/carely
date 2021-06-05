@@ -1,6 +1,6 @@
 import 'package:carely/components/Button.dart';
 import 'package:carely/components/customText.dart';
-import 'package:carely/screens/registrationScreen.dart';
+import 'package:carely/screens/auth/registrationScreen.dart';
 import 'package:carely/services/authService.dart';
 import 'package:carely/services/screen_navigation.dart';
 import 'package:carely/utils/constants.dart';

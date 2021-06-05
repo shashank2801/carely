@@ -3,7 +3,7 @@ import 'package:carely/components/banner.dart';
 import 'package:carely/components/bottomButton.dart';
 import 'package:carely/components/customText.dart';
 import 'package:carely/components/reusableCard.dart';
-import 'package:carely/screens/bmi2.dart';
+import 'package:carely/screens/bmi/bmi2.dart';
 import 'package:carely/services/calcBMI.dart';
 import 'package:carely/services/screen_navigation.dart';
 import 'package:carely/utils/constants.dart';

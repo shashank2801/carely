@@ -1,7 +1,6 @@
-import 'package:carely/screens/authScreen.dart';
-import 'package:carely/screens/loginScreen.dart';
-import 'package:carely/screens/registrationScreen.dart';
-import 'package:carely/utils/constants.dart';
+import 'package:carely/screens/auth/authScreen.dart';
+import 'package:carely/screens/auth/loginScreen.dart';
+import 'package:carely/screens/auth/registrationScreen.dart';
 import 'package:carely/utils/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
