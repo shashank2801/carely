@@ -47,7 +47,7 @@ class _UserState extends State<UserProfile> {
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    colors: [Colors.deepPurple, Color(0xff231934)],
+                    colors: [lime, green],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight),
               ),
