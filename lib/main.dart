@@ -10,15 +10,15 @@ import 'package:provider/provider.dart';
 import 'services/authService.dart';
 import 'components/routes.dart';
 
-// Future<void> main() async{
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp();
-//   runApp(MyApp());
-// }
-
-void main() {
-  runApp(App());
+Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
+
+// void main() {
+//   runApp(App());
+// }
 
 class App extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
