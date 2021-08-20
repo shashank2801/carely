@@ -1,3 +1,4 @@
+import 'package:carely/components/Button.dart';
 import 'package:carely/components/banner.dart';
 import 'package:carely/components/bottomButton.dart';
 import 'package:carely/components/customText.dart';
@@ -40,7 +41,7 @@ class BMIResult extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 6,
+              flex: 5,
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Container(
@@ -63,6 +64,7 @@ class BMIResult extends StatelessWidget {
                 ),
               ),
             ),
+            Button(onPressed: (){},text: "Save",),
             BottomButton(
               onPress: () {
                 Navigator.pop(context);

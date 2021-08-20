@@ -2,6 +2,7 @@
 import 'package:carely/components/customText.dart';
 
 import 'package:carely/screens/bmi/bmi.dart';
+import 'package:carely/screens/bp.dart';
 import 'package:carely/screens/portal/disclaimer.dart';
 import 'package:carely/screens/user.dart';
 import 'package:carely/services/authService.dart';
@@ -50,6 +51,15 @@ class _HomePageState extends State<HomePage> {
                 child: CustomText(title: "BMI"),
                 onPressed: () {
                   changeScreen(context, BMI());
+                },
+              ),
+              MaterialButton(
+                elevation: 5,
+                color: Colors.green,
+                disabledColor: Colors.teal,
+                child: CustomText(title: "BP"),
+                onPressed: () {
+                  changeScreen(context, BP());
                 },
               ),
             ],
