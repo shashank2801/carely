@@ -2,8 +2,11 @@ import 'package:carely/components/Button.dart';
 import 'package:carely/components/banner.dart';
 import 'package:carely/components/bottomButton.dart';
 import 'package:carely/components/customText.dart';
+import 'package:carely/services/authService.dart';
 import 'package:carely/utils/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 enum Gender {
   male,
@@ -12,12 +15,16 @@ enum Gender {
 
 class BMIResult extends StatelessWidget {
   final String bmi, result, interpret;
-
   const BMIResult({Key key, this.bmi, this.result, this.interpret}) : super(key: key);
 
 
+  
+
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    String uid = auth.currentUser.uid;
+    final DateTime timestamp = DateTime.now();
     return SafeArea(
       child: Scaffold(
        // backgroundColor: white,
@@ -64,7 +71,24 @@ class BMIResult extends StatelessWidget {
                 ),
               ),
             ),
-            Button(onPressed: (){},text: "Save",),
+            Button(onPressed: () async{
+              final message = await context
+              .read<AuthenticationService>()
+              .addBMIDetails(
+                uid: auth.currentUser.uid,
+                bmi: bmi,
+                timestamp: timestamp);
+                print(message);
+                if(message == "Entry done"){
+                  ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text("BMI Details Saved.")));
+                  
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text("Error! Please try again.")));
+                    
+                  }
+            },text: "Save",),
             BottomButton(
               onPress: () {
                 Navigator.pop(context);

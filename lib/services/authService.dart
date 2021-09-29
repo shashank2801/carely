@@ -1,7 +1,9 @@
+import 'package:carely/models/bmiModel.dart';
 import 'package:carely/models/bpModel.dart';
 import 'package:carely/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
@@ -10,9 +12,17 @@ class AuthenticationService {
 
   Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
   UserModel userModel = UserModel();
-  BPModel bpModel = BPModel();
+
+  // BPModel bpModel = BPModel();
+  // BMIModel bmiModel = BMIModel();
+
   final userRef = FirebaseFirestore.instance.collection("users");
-  final bpRef = FirebaseFirestore.instance.collection("bp");
+
+  // final bpRef = FirebaseFirestore.instance.collection("bp");
+  // final bmiRef = FirebaseFirestore.instance.collection("bmi");
+
+  List<Map> bpList = [];
+  List<Map> bmiList = [];
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
@@ -52,15 +62,72 @@ class AuthenticationService {
     return UserModel.fromMap(doc.data());
   }
 
-  Future<void> addBPDetails(
+  Future addBPDetails(
       {String uid,
       String sys,
       String dia,
       String pulse,
       DateTime timestamp}) async {
-    bpModel = BPModel(
-        uid: uid, sys: sys, dia: dia, heart: pulse, timestamp: timestamp);
+    // bpModel = BPModel(
+    //     uid: uid, sys: sys, dia: dia, heart: pulse, timestamp: timestamp);
 
-    await bpRef.doc(uid).set(bpModel.toMap(bpModel));
+    // await bpRef.doc(uid).set(bpModel.toMap(bpModel));
+    // await bpRef.doc(uid).update(data)
+    // await bpRef.add(bpModel.toMap(bpModel));
+
+    Map<String, dynamic> mapData = {
+      "sys": sys,
+      "dia": dia,
+      "pulse": pulse,
+      "timestamp": timestamp
+    };
+
+    bpList.add(mapData);
+    try {
+      await userRef
+          .doc(uid)
+          .set({"bp": FieldValue.arrayUnion(bpList)}, SetOptions(merge: true));
+      return "Entry done";
+    } on FirebaseException catch (e) {
+      return e.message;
+    }
+
+    // .then((_){AlertDialog(
+    //             title: Text("Info"),
+    //             content: Text("Blood Pressure Details Saved"),
+    //           );});
+  }
+
+  //TODO: Extract information from collection.
+  Future<BPModel> getBPFromDB({String uid}) async {
+    // final DocumentSnapshot doc = await bmiRef.doc(uid).get();
+    // print(doc);
+    // return BPModel.fromMap(doc.data());
+  }
+
+  Future addBMIDetails(
+      {String uid, String bmi, DateTime timestamp}) async {
+    // bmiModel = BMIModel(uid: uid,bmi: bmi,timestamp: timestamp);
+
+    Map<String, dynamic> mapData = {"bmi": bmi, "timestamp": timestamp};
+
+    bmiList.add(mapData);
+    try{
+    await userRef
+        .doc(uid)
+        .set({"bmi": FieldValue.arrayUnion(bmiList)}, SetOptions(merge: true));
+
+        return "Entry done";
+
+    } on FirebaseException catch(e){
+      return e.message;
+    }
+  }
+
+  // TODO: Extract information
+  Future<BMIModel> getBMIFromDB({String uid}) async {
+    // final DocumentSnapshot doc = await bmiRef.doc(uid).get();
+    // print(doc);
+    // return BMIModel.fromMap(doc.data());
   }
 }
