@@ -1,4 +1,5 @@
 import 'package:carely/components/customText.dart';
+import 'package:carely/models/bpModel.dart';
 import 'package:carely/models/user.dart';
 import 'package:carely/services/authService.dart';
 import 'package:carely/utils/constants.dart';
@@ -17,7 +18,8 @@ class _UserState extends State<UserProfile> {
   final userRef = FirebaseFirestore.instance.collection("users");
   UserModel _currentUser;
   String _uid = '', _user = '', _email = '';
-
+  List<dynamic> bp;
+  bool isLoading = true;
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -35,6 +37,9 @@ class _UserState extends State<UserProfile> {
       _uid = _currentUser.uid;
       _user = _currentUser.username;
       _email = _currentUser.email;
+      bp = currentUser.bpList;
+      print(bp);
+      isLoading = false;
     });
   }
 
@@ -83,6 +88,21 @@ class _UserState extends State<UserProfile> {
                       ),
                     ),
                   ),
+                  isLoading?Container():
+                  ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: bp.length,
+                    itemBuilder:(BuildContext context,int index){
+                          return Column(
+                            children: [
+                              Text(bp[index]["sys"]),
+                              // Text(bp[index].dia),
+                              // Text(bp[index].heart),
+                              // Text(bp[index].timestamp.toString()),
+                            ],
+                          );
+                    })
                 ],
               ),
             ),

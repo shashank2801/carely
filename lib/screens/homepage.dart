@@ -8,6 +8,8 @@ import 'package:carely/screens/user.dart';
 import 'package:carely/services/authService.dart';
 import 'package:carely/services/screen_navigation.dart';
 import 'package:carely/utils/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 import 'package:flutter/material.dart';
@@ -19,9 +21,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
+  final uid = FirebaseAuth.instance.currentUser.uid;
+  List<dynamic> bp = [];
+  // final Stream<DocumentSnapshot> _stream = FirebaseFirestore.instance.collection('users').doc(uid).snapshots();
   @override
   Widget build(BuildContext context) {
+    bool loaded = false;
     final screenheight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
@@ -62,6 +67,19 @@ class _HomePageState extends State<HomePage> {
                   changeScreen(context, BP());
                 },
               ),
+              MaterialButton(
+                elevation: 5,
+                color: Colors.blue,
+                disabledColor: Colors.teal,
+                child: CustomText(title: "Get BP"),
+                onPressed: () {
+                  bp = context.read<AuthenticationService>().getBPFromDB(uid: uid);
+                  // bp = context.read<AuthenticationService>().resultBPList;
+                  print("hello");
+                  print(bp);
+                },
+              ),
+              
             ],
           ),
           bottomNavigationBar: Container(
@@ -100,6 +118,7 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       changeScreen(context, UserProfile());
                     }),
+                
               ],
             ),
           )),

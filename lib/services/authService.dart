@@ -23,7 +23,7 @@ class AuthenticationService {
 
   List<Map> bpList = [];
   List<Map> bmiList = [];
-
+  List<dynamic> resultBPList = [];
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }
@@ -84,9 +84,18 @@ class AuthenticationService {
 
     bpList.add(mapData);
     try {
+      // to add to map of arrays
       await userRef
           .doc(uid)
           .set({"bp": FieldValue.arrayUnion(bpList)}, SetOptions(merge: true));
+
+
+      // to add to collection
+      // await userRef
+      //   .doc(uid)
+      //   .collection("bp")
+      //   .add(mapData);
+
       return "Entry done";
     } on FirebaseException catch (e) {
       return e.message;
@@ -98,12 +107,47 @@ class AuthenticationService {
     //           );});
   }
 
+
   //TODO: Extract information from collection.
-  Future<BPModel> getBPFromDB({String uid}) async {
-    // final DocumentSnapshot doc = await bmiRef.doc(uid).get();
-    // print(doc);
-    // return BPModel.fromMap(doc.data());
-  }
+  // Future getBPFromDB({String uid}) async {
+  //   // final DocumentSnapshot doc = await bmiRef.doc(uid).get();
+  //   // print(doc);
+  //   // return BPModel.fromMap(doc.data());
+
+  //   // final DocumentSnapshot doc = await userRef.doc(uid).get();
+  //   // print(doc.data().toString());
+
+  //   final CollectionReference doc =  userRef.doc(uid).collection('bp');
+  //   print(doc.snapshots());
+  //   return doc;
+
+
+  //   // final DocumentSnapshot doc = await userRef.doc(uid).get().then((value){
+  //   //   value.data().forEach((result){
+  //   //   userRef.doc(result.uid).collection("bp").get().then((value1){value1.docs.forEach((element) {print(element.data());});});
+  //   //   });
+  //   // });
+  //   // print(doc);
+  // }
+
+
+  //*************************************TESTING PURPOSE ONLY**************************************** */
+
+
+  List getBPFromDB({String uid}) {
+    Stream<QuerySnapshot> doc = userRef.doc(uid).collection('bp').snapshots();
+    doc.forEach((field) {field.docs.asMap().forEach((key, value) {
+      print(field.docs[key]);
+      resultBPList.add(field.docs[key]);
+      });
+      });
+    print(resultBPList);
+    return resultBPList;
+    // QuerySnapshot querySnapshot = await doc.get();
+    // final allData = querySnapshot.docs.map((doc)=>doc.data()).toList();
+    // print(allData);
+    // return doc;
+  } 
 
   Future addBMIDetails(
       {String uid, String bmi, DateTime timestamp}) async {
@@ -113,9 +157,14 @@ class AuthenticationService {
 
     bmiList.add(mapData);
     try{
+    // await userRef
+    //     .doc(uid)
+    //     .set({"bmi": FieldValue.arrayUnion(bmiList)}, SetOptions(merge: true));
+
     await userRef
         .doc(uid)
-        .set({"bmi": FieldValue.arrayUnion(bmiList)}, SetOptions(merge: true));
+        .collection("bmi")
+        .add(mapData);
 
         return "Entry done";
 

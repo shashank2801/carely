@@ -1,3 +1,6 @@
+import 'package:carely/models/bmiModel.dart';
+import 'package:carely/models/bpModel.dart';
+
 class UserModel {
   String email;
   String uid;
@@ -6,6 +9,9 @@ class UserModel {
   String bG;
   DateTime dob;
   DateTime timestamp;
+  List<dynamic> bpList;
+  // Map<String,dynamic> bmiList;
+
   
   UserModel({this.email, this.uid, this.username, this.timestamp,this.bG,this.dob,this.gender});
   
@@ -30,5 +36,20 @@ class UserModel {
     this.bG = mapData["bG"];
     this.dob = mapData["dob"];
     this.gender = mapData["gender"];
+    // testing purpose
+    
+    this.bpList = mapData["bp"];
+    // Map<String,dynamic> bpMap = Map<String,dynamic>.from(mapData["bp"]);
+    // bpMap.forEach((element,value) {
+    //   bp.add(BPModel
+    //   (
+    //     sys: element[0],
+    //     dia: element[1],
+    //     heart: element[2],
+    //     timestamp: element[3].toString(),
+    //   ));
+    // });
+    // this.bpList = bp;
+    // this.bmiList = mapData["bmi"];
   }
 }

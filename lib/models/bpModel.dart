@@ -3,7 +3,7 @@ class BPModel{
   String dia;
   String heart;
   String uid;
-  DateTime timestamp;
+  String timestamp;
 
   BPModel({this.sys,this.dia,this.heart,this.uid,this.timestamp});
 
