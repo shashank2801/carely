@@ -1,5 +1,6 @@
 
 import 'package:carely/components/customText.dart';
+import 'package:carely/models/user.dart';
 
 import 'package:carely/screens/bmi/bmi.dart';
 import 'package:carely/screens/bp.dart';
@@ -21,8 +22,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final uid = FirebaseAuth.instance.currentUser.uid;
-  List<dynamic> bp = [];
+  FirebaseAuth auth = FirebaseAuth.instance;
+  String uid = "";
+  // final userRef = FirebaseFirestore.instance.collection("users");
+  UserModel _currentUser;
+  void initState(){
+    super.initState();
+    getCurrentUser();
+  }
+
+  getCurrentUser() async {
+    await context.read<AuthenticationService>().loadUser(uid: auth.currentUser.uid);
+  }
+
   // final Stream<DocumentSnapshot> _stream = FirebaseFirestore.instance.collection('users').doc(uid).snapshots();
   @override
   Widget build(BuildContext context) {
@@ -67,18 +79,18 @@ class _HomePageState extends State<HomePage> {
                   changeScreen(context, BP());
                 },
               ),
-              MaterialButton(
-                elevation: 5,
-                color: Colors.blue,
-                disabledColor: Colors.teal,
-                child: CustomText(title: "Get BP"),
-                onPressed: () {
-                  bp = context.read<AuthenticationService>().getBPFromDB(uid: uid);
-                  // bp = context.read<AuthenticationService>().resultBPList;
-                  print("hello");
-                  print(bp);
-                },
-              ),
+              // MaterialButton(
+              //   elevation: 5,
+              //   color: Colors.blue,
+              //   disabledColor: Colors.teal,
+              //   child: CustomText(title: "Get BP"),
+              //   onPressed: () {
+              //     bp = context.read<AuthenticationService>().getBPFromDB(uid: uid);
+              //     // bp = context.read<AuthenticationService>().resultBPList;
+              //     print("hello");
+              //     print(bp);
+              //   },
+              // ),
               
             ],
           ),
@@ -116,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                       size: screenheight * .04,
                     ),
                     onPressed: () {
-                      changeScreen(context, UserProfile());
+                      changeScreen(context, UserProfile(currentUser: _currentUser,));
                     }),
                 
               ],

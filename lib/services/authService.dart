@@ -1,10 +1,8 @@
+
 import 'package:carely/models/bmiModel.dart';
-import 'package:carely/models/bpModel.dart';
 import 'package:carely/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
 
@@ -13,6 +11,10 @@ class AuthenticationService {
   Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
   UserModel userModel = UserModel();
 
+
+  // ****************************************** Getting current user over state *******************************************
+
+  UserModel currUser = UserModel(uid: "",username: "",bG: "",timestamp: null,gender: "",dob: null,email: "");
   // BPModel bpModel = BPModel();
   // BMIModel bmiModel = BMIModel();
 
@@ -32,6 +34,9 @@ class AuthenticationService {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+    final DocumentSnapshot doc = await userRef.doc(_firebaseAuth.currentUser.uid).get();
+    // print(doc);
+    currUser = UserModel.fromMap(doc.data());
       return "Signed In";
     } on FirebaseAuthException catch (e) {
       return e.message;
@@ -41,7 +46,8 @@ class AuthenticationService {
   Future<String> signUp({String email, String password}) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      email: email, password: password);
+      
       return "Signed Up";
     } on FirebaseAuthException catch (e) {
       return e.message;
@@ -58,10 +64,23 @@ class AuthenticationService {
 
   Future<UserModel> getUserFromDB({String uid}) async {
     final DocumentSnapshot doc = await userRef.doc(uid).get();
-    print(doc);
+    // print(doc);
     return UserModel.fromMap(doc.data());
   }
 
+  Future<void> loadUser({String uid}) async{
+    try{
+      final DocumentSnapshot doc = await userRef.doc(_firebaseAuth.currentUser.uid).get();
+    // print(doc);
+      currUser = UserModel.fromMap(doc.data());
+      return "Done";
+    }
+    catch (e){
+      print(e);
+    }
+    
+  }
+  
   Future addBPDetails(
       {String uid,
       String sys,

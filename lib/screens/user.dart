@@ -1,5 +1,5 @@
+
 import 'package:carely/components/customText.dart';
-import 'package:carely/models/bpModel.dart';
 import 'package:carely/models/user.dart';
 import 'package:carely/services/authService.dart';
 import 'package:carely/utils/constants.dart';
@@ -9,39 +9,44 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class UserProfile extends StatefulWidget {
+  const UserProfile({Key key, this.currentUser}) : super(key: key);
+  final UserModel currentUser;
   @override
-  _UserState createState() => _UserState();
+  _UserState createState() => _UserState(currentUser: currentUser);
 }
 
 class _UserState extends State<UserProfile> {
+  _UserState({this.currentUser});
   FirebaseAuth auth = FirebaseAuth.instance;
   final userRef = FirebaseFirestore.instance.collection("users");
-  UserModel _currentUser;
-  String _uid = '', _user = '', _email = '';
-  List<dynamic> bp;
-  bool isLoading = true;
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getCurrentUser();
-  }
+  final UserModel currentUser;
+  // String _uid = '', _user = '', _email = '';
+  // List<dynamic> bp;
+  // bool isLoading = true;
 
-  getCurrentUser() async {
-    UserModel currentUser = await context
-        .read<AuthenticationService>()
-        .getUserFromDB(uid: auth.currentUser.uid);
 
-    _currentUser = currentUser;
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   getCurrentUser();
+  // }
 
-    setState(() {
-      _uid = _currentUser.uid;
-      _user = _currentUser.username;
-      _email = _currentUser.email;
-      bp = currentUser.bpList;
-      print(bp);
-      isLoading = false;
-    });
-  }
+  // getCurrentUser() async {
+  //   UserModel currentUser = await context
+  //       .read<AuthenticationService>()
+  //       .getUserFromDB(uid: auth.currentUser.uid);
+
+  //   _currentUser = currentUser;
+
+  //   setState(() {
+  //     _uid = _currentUser.uid;
+  //     _user = _currentUser.username;
+  //     _email = _currentUser.email;
+  //     bp = currentUser.bpList;
+  //     print(bp);
+  //     isLoading = false;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +81,7 @@ class _UserState extends State<UserProfile> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           CustomText(
-                            title: _user,
+                            title: context.watch<AuthenticationService>().currUser.username.toString(),
                             size: 40,
                             weight: FontWeight.bold,
                             color: black,
@@ -88,21 +93,21 @@ class _UserState extends State<UserProfile> {
                       ),
                     ),
                   ),
-                  isLoading?Container():
-                  ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: bp.length,
-                    itemBuilder:(BuildContext context,int index){
-                          return Column(
-                            children: [
-                              Text(bp[index]["sys"]),
-                              // Text(bp[index].dia),
-                              // Text(bp[index].heart),
-                              // Text(bp[index].timestamp.toString()),
-                            ],
-                          );
-                    })
+                  // isLoading?Container():
+                  // ListView.builder(
+                  //   scrollDirection: Axis.vertical,
+                  //   shrinkWrap: true,
+                  //   itemCount: bp.length,
+                  //   itemBuilder:(BuildContext context,int index){
+                  //         return Column(
+                  //           children: [
+                  //             Text(bp[index]["sys"]),
+                  //             // Text(bp[index].dia),
+                  //             // Text(bp[index].heart),
+                  //             // Text(bp[index].timestamp.toString()),
+                  //           ],
+                  //         );
+                  //   })
                 ],
               ),
             ),

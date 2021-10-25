@@ -1,3 +1,4 @@
+
 import 'package:carely/screens/auth/authScreen.dart';
 import 'package:carely/screens/auth/loginScreen.dart';
 import 'package:carely/screens/auth/registrationScreen.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
         StreamProvider(
             create: (context) =>
                 context.read<AuthenticationService>().authStateChanges),
+        // Provider(create:(_) => context.read<AuthenticationService>().loadUser(uid: FirebaseAuth.instance.currentUser.uid),)
       ],
       child: MaterialApp(
         title: 'Carely',
